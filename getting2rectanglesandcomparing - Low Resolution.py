@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import logging
 import nt_client
+import ocupus_cam
 
 #cap=cv2.VideoCapture
 cap=cv2.VideoCapture(2)
