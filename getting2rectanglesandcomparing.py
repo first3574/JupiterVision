@@ -5,8 +5,9 @@ import logging
 import nt_client
 import ocupus_cam
 
-#cap=cv2.VideoCapture
-cap=cv2.VideoCapture(r"d:\infrared2.avi")
+#cap=cv2.VideoCapture(2)
+cap=cv2.VideoCapture(r"D:\Infared Test Videos\Infrared-2014-04-05T220752.929643.mkv.avi")
+#cap.set(0,120 * 1000)
 #client = nt_client.NetworkTableClient("3574", True)
 #client.setValue("/Vision/Test", "howdy")
 #logging.setLevel(logging.ERROR)
@@ -19,6 +20,16 @@ horizBottomRightX = 0
 horizBottomRightY = 0
 x2 = 0
 y2 = 0
+error1 = 0
+error2 = 0
+error3 = 0
+error4 = 0
+error5 = 0
+error6 = 0
+error7 = 0
+error8 = 0
+error9 = 0
+    
 while True:
     r,f=cap.read()
     f = cv2.resize(f,(320,240))
@@ -37,33 +48,46 @@ while True:
     else :
         verAndHorClose = False
     
-    (thresh, im_bw) = cv2.threshold(gray, 240, 255, cv2.THRESH_BINARY)
+    (thresh, im_bw) = cv2.threshold(gray,200,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+    cv2.imshow("im_bw",im_bw)
     (contours, hierarchy) = cv2.findContours(im_bw,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
     #cv2.drawContours(f, contours, -1, (0,255,0),3)
 
     c = len(contours)
     #cv2.putText(f,c,(5,25), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0,255,0))
-    
+        
     for j in range(0, len(contours)) :
         cnt = contours[j]
+        #logging.warning(str(j) + " x Log")
+        #logging.warning(str(len(cnt)) + " Len cnt")
         
         perimeter = cv2.arcLength(cnt,True)
         #logging.warning(str(perimeter) + " perimeter Log")
 
         approx = cv2.approxPolyDP(cnt,0.01*perimeter,True)
-        #logging.warning(str(j) + " x Log")
-        #logging.warning(str(len(cnt)) + " Len cnt")
         
         area = cv2.contourArea(cnt)
         #logging.warning(str(area) + " area Log")
-        
-        if (area < 40 or perimeter < 10) :
+
+        if (area < 15 or perimeter < 7) :
+            #print(str(area) + " < 10 area Log _ " + str(perimeter) + " < 5 perimeter Log --- error1 " + str(error1))
+            error1 = error1 + 1
             continue
-        if (perimeter > area) :
+        if (area < 25 or perimeter < 10) :
+            print(str(area) + " < 30 area Log _ " + str(perimeter) + " < 10 perimeter Log --- error2 " + str(error2))
+            error2 = error2 + 1
+            continue
+        if (perimeter > area * 2) :
+            print(str(area * 2) + " < " + str(perimeter) + " _ area Log + perimeter Log --- error3 " + str(error3))
+            error3 = error3 + 1
             continue
         if (area > 10000 or perimeter > 1000) :
+            print(str(area) + " > 10000 area Log _ " + str(perimeter) + "> 1000 perimeter Log --- error4 " + str(error4))
+            error4 = error4 + 1
             continue
         if (perimeter + area > 10000) :
+            #print(str(area) + " + " + str(perimeter) + " = " + str(perimeter + area) + " > 10000 _ area Log + perimeter Log > 10000 --- error5 " + str(error5))
+            error5 = error5 + 1
             continue
         
         k = cv2.isContourConvex(cnt)
@@ -74,18 +98,46 @@ while True:
         areaApprox = cv2.contourArea(approx)
         #areaIm = cv2.contourArea(im)
         if (h > 200 or w > 200) :
+            #print(str(h) + " > 200 h Log _ " + str(w) + "> 200 w Log --- error6 " + str(error6))
+            error6 = error6 + 1
             continue
         if (areaApprox * 2 < area) :
+            #print(str(areaApprox * 2) + " < " + str(area) + " areaApprox * 2 < area --- error7 " + str(error7))
+            error7 = error7 + 1
             continue
         if (w == h) :
+            print(str(h) + " == " + str(w) + " h == w --- error8 " + str(error8))
+            error8 = error8 + 1
             continue
         
         ratio = (w * 1.0)/(h * 1.0)
         
-        if (ratio > 0.3 and ratio < 3.5) :
+        if (ratio > 0.4 and ratio < 3.0) :
+            print(str(ratio) + " > 0.3 _ " + str(ratio) + " < 3.5 --- error9 " + str(error9))
+            error9 = error9 + 1
             continue
         #if (k == True) :
             #continue
+
+        #if (error1 != 0) :
+            #print (str(error1) + " error1")
+        if (error2 != 0) :
+            print (str(error2) + " error2")
+        if (error3 != 0) :
+            print (str(error3) + " error3")
+        if (error4 != 0) :
+            print (str(error4) + " error4")
+        if (error5 != 0) :
+            print (str(error5) + " error5")
+        if (error6 != 0) :
+            print (str(error6) + " error6")
+        if (error7 != 0) :
+            print (str(error7) + " error7")
+        if (error8 != 0) :
+            print (str(error8) + " error8")
+        if (error9 != 0) :
+            print (str(error9) + " error9")
+    
 
         rect = cv2.minAreaRect(cnt)
         box = cv2.cv.BoxPoints(rect)
@@ -208,8 +260,7 @@ while True:
     logging.warning(str(verAndHorClose) + " Vertical_And_Horizontal_Close")
     
     cv2.imshow("gray",gray)
-    cv2.imshow("im_bw",im_bw)
     cv2.imshow("f",f)
     cv2.waitKey(1)
-    
+
     #logging.warning('You smell haha get on my level')
