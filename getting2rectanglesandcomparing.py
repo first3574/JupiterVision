@@ -5,8 +5,8 @@ import logging
 import nt_client
 import ocupus_cam
 
-#cap=cv2.VideoCapture(2)
-cap=cv2.VideoCapture(r"D:\Infared Test Videos\Infrared-2014-04-05T220752.929643.mkv.avi")
+cap=cv2.VideoCapture(2)
+#cap=cv2.VideoCapture(r"D:\Infared Test Videos\Infrared-2014-04-05T220752.929643.mkv.avi")
 #cap.set(0,120 * 1000)
 #client = nt_client.NetworkTableClient("3574", True)
 #client.setValue("/Vision/Test", "howdy")
@@ -38,17 +38,19 @@ while True:
     contourCount = 0
 
     verAndHorClose = False
-    #logging.warning(str(vertTopLeftX) + "," + str(vertTopLeftY) + " (vertTopLeftX),(vertTopLeftY) Log")
-    #logging.warning(str(horizBottomRightX) + "," + str(horizBottomRightY) + " (horizBottomRightX),(horizBottomRightY) Log")
+    logging.error(str(vertTopLeftX) + "," + str(vertTopLeftY) + " (vertTopLeftX),(vertTopLeftY) Log")
+    logging.error(str(horizBottomRightX) + "," + str(horizBottomRightY) + " (horizBottomRightX),(horizBottomRightY) Log")
     closeX = vertTopLeftX - horizBottomRightX
     closeY = horizBottomRightY - vertTopLeftY 
-    #logging.warning(str(closeX) + "," + str(closeY) + " (closeX),(closeY) Log")
-    if (closeX < 25 and closeY < 25 and closeX + closeY != 0) :
+    logging.error(str(closeX) + "," + str(closeY) + " (closeX),(closeY) Log")
+    if (closeX < 25 and closeY < 25 and vertTopLeftX != 0 and vertTopLeftY != 0 and horizBottomRightX != 0 and horizBottomRightY != 0) :
         verAndHorClose = True
     else :
         verAndHorClose = False
-    
+
+    #Needs bright light always or contrast freaks, works well otherwise
     (thresh, im_bw) = cv2.threshold(gray,200,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+    #(thresh, im_bw) = cv2.threshold(gray,200,255,cv2.THRESH_BINARY)
     cv2.imshow("im_bw",im_bw)
     (contours, hierarchy) = cv2.findContours(im_bw,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
     #cv2.drawContours(f, contours, -1, (0,255,0),3)
@@ -74,7 +76,7 @@ while True:
             error1 = error1 + 1
             continue
         if (area < 25 or perimeter < 10) :
-            print(str(area) + " < 30 area Log _ " + str(perimeter) + " < 10 perimeter Log --- error2 " + str(error2))
+            #print(str(area) + " < 30 area Log _ " + str(perimeter) + " < 10 perimeter Log --- error2 " + str(error2))
             error2 = error2 + 1
             continue
         if (perimeter > area * 2) :
@@ -254,10 +256,11 @@ while True:
         horizBottomRightY = 0
         horizWidth = 0
         horizHeight = 0
+        
 
     # send the contour count to the network tables
     #client.setValue("/Vision/Vertical_And_Horizontal_Close", verAndHorClose)
-    logging.warning(str(verAndHorClose) + " Vertical_And_Horizontal_Close")
+    logging.error(str(verAndHorClose) + " Vertical_And_Horizontal_Close")
     
     cv2.imshow("gray",gray)
     cv2.imshow("f",f)
