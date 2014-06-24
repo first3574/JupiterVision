@@ -5,7 +5,7 @@ import logging
 import nt_client
 import ocupus_cam
 
-cap=cv2.VideoCapture(2)
+#cap=cv2.VideoCapture(2)
 #cap=cv2.VideoCapture(r"D:\Infared Test Videos\Infrared-2014-04-05T220752.929643.mkv.avi")
 #cap.set(0,120 * 1000)
 #client = nt_client.NetworkTableClient("3574", True)
@@ -13,26 +13,26 @@ cap=cv2.VideoCapture(2)
 #logging.setLevel(logging.ERROR)
 Log = logging.getLogger()
 Log.setLevel(logging.ERROR)
-                        
-vertTopLeftX = 0
-vertTopLeftY = 0
-horizBottomRightX = 0
-horizBottomRightY = 0
-x2 = 0
-y2 = 0
-error1 = 0
-error2 = 0
-error3 = 0
-error4 = 0
-error5 = 0
-error6 = 0
-error7 = 0
-error8 = 0
-error9 = 0
-    
-while True:
-    r,f=cap.read()
-    f = cv2.resize(f,(320,240))
+
+
+def isHotGoal (f):
+                                
+    vertTopLeftX = 0
+    vertTopLeftY = 0
+    horizBottomRightX = 0
+    horizBottomRightY = 0
+    x2 = 0
+    y2 = 0
+    error1 = 0
+    error2 = 0
+    error3 = 0
+    error4 = 0
+    error5 = 0
+    error6 = 0
+    error7 = 0
+    error8 = 0
+    error9 = 0
+
     gray = cv2.cvtColor(f, cv2.COLOR_BGR2GRAY)
 
     contourCount = 0
@@ -51,7 +51,7 @@ while True:
     #Needs bright light always or contrast freaks, works well otherwise
     (thresh, im_bw) = cv2.threshold(gray,200,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
     #(thresh, im_bw) = cv2.threshold(gray,200,255,cv2.THRESH_BINARY)
-    cv2.imshow("im_bw",im_bw)
+    #cv2.imshow("im_bw",im_bw)
     (contours, hierarchy) = cv2.findContours(im_bw,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
     #cv2.drawContours(f, contours, -1, (0,255,0),3)
 
@@ -262,8 +262,18 @@ while True:
     #client.setValue("/Vision/Vertical_And_Horizontal_Close", verAndHorClose)
     logging.error(str(verAndHorClose) + " Vertical_And_Horizontal_Close")
     
-    cv2.imshow("gray",gray)
-    cv2.imshow("f",f)
-    cv2.waitKey(1)
+    #cv2.imshow("gray",gray)
+    #cv2.imshow("f",f)
+    #cv2.waitKey(1000)
+
+    return verAndHorClose
+    
+#while True:
+    #r,f=cap.read()
+    #f = cv2.resize(f,(320,240))
+    #isHotGoal(f)
 
     #logging.warning('You smell haha get on my level')
+
+#testHot_1 = cv2.imread(r"C:\Users\Johanna\Pictures\Robotics\Hot Goals\HotGoal_2.png")
+#print isHotGoal(testHot_1)
