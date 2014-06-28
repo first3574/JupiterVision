@@ -26,14 +26,14 @@ def isHotGoal (f):
     x2 = 0
     y2 = 0
     error1 = 0
-    #error2 = 0
+    error2 = 0
     error3 = 0
     error4 = 0
     error5 = 0
     error6 = 0
     error7 = 0
     error8 = 0
-    #error9 = 0
+    error9 = 0
 
     gray = cv2.cvtColor(f, cv2.COLOR_BGR2GRAY)
 
@@ -69,10 +69,10 @@ def isHotGoal (f):
             #print(str(area) + " < 10 area Log _ " + str(perimeter) + " < 5 perimeter Log --- error1 " + str(error1))
             error1 = error1 + 1
             continue
-        #if (area < 25 or perimeter < 10) :
+        if (area < 25 or perimeter < 10) :
             #print(str(area) + " < 30 area Log _ " + str(perimeter) + " < 10 perimeter Log --- error2 " + str(error2))
-            #error2 = error2 + 1
-            #continue
+            error2 = error2 + 1
+            continue
         if (perimeter > area * 2) :
             print(str(area * 2) + " < " + str(perimeter) + " _ area Log + perimeter Log --- error3 " + str(error3))
             error3 = error3 + 1
@@ -108,17 +108,17 @@ def isHotGoal (f):
         
         ratio = (w * 1.0)/(h * 1.0)
         
-        #if (ratio > 0.4 and ratio < 3.0) :
+        if (ratio > 0.4 and ratio < 3.0) :
             #print(str(ratio) + " > 0.4 _ " + str(ratio) + " < 3.0 --- error9 " + str(error9))
-            #error9 = error9 + 1
-            #continue
+            error9 = error9 + 1
+            continue
         #if (k == True) :
             #continue
 
         #if (error1 != 0) :
             #print (str(error1) + " error1")
-        #if (error2 != 0) :
-            #print (str(error2) + " error2")
+        if (error2 != 0) :
+            print (str(error2) + " error2")
         if (error3 != 0) :
             print (str(error3) + " error3")
         if (error4 != 0) :
@@ -131,8 +131,8 @@ def isHotGoal (f):
             print (str(error7) + " error7")
         if (error8 != 0) :
             print (str(error8) + " error8")
-        #if (error9 != 0) :
-            #print (str(error9) + " error9")
+        if (error9 != 0) :
+            print (str(error9) + " error9")
     
 
         rect = cv2.minAreaRect(cnt)
@@ -254,11 +254,10 @@ def isHotGoal (f):
 
     # send the contour count to the network tables
     #client.setValue("/Vision/Vertical_And_Horizontal_Close", verAndHorClose)
-    logging.error(str(verAndHorClose) + " Vertical_And_Horizontal_Close")
     
-    #cv2.imshow("gray",gray)
-    #cv2.imshow("f",f)
-    #cv2.waitKey(1000)
+    cv2.imshow("gray",gray)
+    cv2.imshow("f",f)
+    cv2.waitKey(10000)
     
     logging.error(str(vertTopLeftX) + "," + str(vertTopLeftY) + " (vertTopLeftX),(vertTopLeftY) Log")
     logging.error(str(horizBottomRightX) + "," + str(horizBottomRightY) + " (horizBottomRightX),(horizBottomRightY) Log")
@@ -270,6 +269,8 @@ def isHotGoal (f):
     else :
         verAndHorClose = False
 
+    logging.error(str(verAndHorClose) + " Vertical_And_Horizontal_Close")
+    
     return verAndHorClose
     
 #while True:
