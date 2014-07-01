@@ -14,14 +14,6 @@ class TestHotGoal (unittest.TestCase):
     def test_Hot_2 (self):
         testHot_2 = cv2.imread(r"Hot Goals/HotGoal_Real2.png")
         self.assertTrue(isHotGoal(testHot_2))
-        
-    def test_Hot_3 (self):
-        testHot_3 = cv2.imread(r"Hot Goals/HotGoal_Fake1.png")
-        self.assertTrue(isHotGoal(testHot_3))
-
-    def test_Hot_4 (self):
-        testHot_4 = cv2.imread(r"Hot Goals/HotGoal_Fake2.png")
-        self.assertTrue(isHotGoal(testHot_4))
 
     def test_NotHot_1 (self):
         testNotHot_1 = cv2.imread(r"Hot Goals/NotHotGoal_Real1.png")
