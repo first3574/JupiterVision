@@ -1,9 +1,10 @@
-from getting2rectanglesandcomparing import isHotGoal
-import cv2
-import unittest
 import sys
 
 sys.path.insert(0,'/usr/lib/pyshared/python2.7')
+
+from getting2rectanglesandcomparing import isHotGoal
+import cv2
+import unittest
 
 class TestHotGoal (unittest.TestCase):
     def test_Hot_1 (self):
