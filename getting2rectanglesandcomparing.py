@@ -138,7 +138,7 @@ def isHotGoal (f):
         rect = cv2.minAreaRect(cnt)
         box = cv2.cv.BoxPoints(rect)
         box = np.int0(box)
-        im = cv2.drawContours(f,[box],0,(0,0,255),2)
+        #im = cv2.drawContours(f,[box],0,(0,0,255),2)
         img = cv2.rectangle(f,(x,y),(x+w,y+h),(255,0,0),2)
 
         #logging.warning(str(w) + " w Log")
@@ -148,7 +148,7 @@ def isHotGoal (f):
 
         
         if (w < h) : # vertical - yellow
-            cv2.drawContours(f, [approx], -1, (0,255,255),3)
+            #cv2.drawContours(f, [approx], -1, (0,255,255),3)
             contourCount += 1
 
             vertTopLeftX = x
@@ -174,7 +174,7 @@ def isHotGoal (f):
             logging.warning("contour 1 vertical " + str(vertical1))
            
         elif (h < w) : # horizontal - cyan
-            cv2.drawContours(f, [approx], -1, (255,255,0),3)
+            #cv2.drawContours(f, [approx], -1, (255,255,0),3)
             contourCount += 1
 
             horizTopLeftX = x
@@ -199,7 +199,7 @@ def isHotGoal (f):
             logging.warning("contour 2 horizantal " + str(horizantal2))
       
         else :
-            cv2.drawContours(f, [approx], -1, (0,255,0),3)
+            #cv2.drawContours(f, [approx], -1, (0,255,0),3)
             contour3 = j
             wrong3 = True
 
@@ -212,7 +212,7 @@ def isHotGoal (f):
             logging.warning("contour 3 wrong " + str(wrong3))
 
         logging.warning(str(c) + " c Log")
-        logging.warning(str(im) + " im Log")
+        #logging.warning(str(im) + " im Log")
         logging.warning(str(img) + " img Log")
 
         M = cv2.moments(cnt)
@@ -233,16 +233,16 @@ def isHotGoal (f):
         logging.warning(str(x2) + ", " + str(y2) + " (x2, y2) Log")
         x2BottomRight = x2 + w2
         y2BottomRight = y2 + h2
-        cv2.line(f, (x1, y1), (x2 + w2, y2 + h2), (107,7,255))
+        #cv2.line(f, (x1, y1), (x2 + w2, y2 + h2), (107,7,255))
         logging.warning(str(x1 - x2) + "," + str(y1 - y2) + " (x1 - x2),(y1 - y2) Log")
-        cv2.rectangle(f,(x1, y1),(x2 + w2, y2 + h2),(255,7,107),2)
+        #cv2.rectangle(f,(x1, y1),(x2 + w2, y2 + h2),(255,7,107),2)
         logging.warning("x,y:x,y   "
                     + str(vertTopLeftX) + ","
                     + str(vertTopLeftY) + ":"
                     + str(horizBottomRightX) + ","
                     + str(horizBottomRightY))
-        cv2.circle(f, (vertTopLeftX, vertTopLeftY), 1, (0, 127, 0), 5)
-        cv2.circle(f, (horizBottomRightX, horizBottomRightY), 1, (0, 255, 0), 5)
+        #cv2.circle(f, (vertTopLeftX, vertTopLeftY), 1, (0, 127, 0), 5)
+        #cv2.circle(f, (horizBottomRightX, horizBottomRightY), 1, (0, 255, 0), 5)
     elif (contourCount != 2) :
         horizTopLeftX = 0
         horizTopLeftY = 0
@@ -255,8 +255,8 @@ def isHotGoal (f):
     # send the contour count to the network tables
     #client.setValue("/Vision/Vertical_And_Horizontal_Close", verAndHorClose)
     
-    cv2.imshow("gray",gray)
-    cv2.imshow("f",f)
+    #cv2.imshow("gray",gray)
+    #cv2.imshow("f",f)
     cv2.waitKey(10000)
     
     logging.error(str(vertTopLeftX) + "," + str(vertTopLeftY) + " (vertTopLeftX),(vertTopLeftY) Log")
