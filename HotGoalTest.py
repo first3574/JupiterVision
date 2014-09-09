@@ -26,26 +26,6 @@ class TestHotGoal (unittest.TestCase):
         testHot_2 = cv2.imread(r"Hot Goals/HotGoal_Real2.png")
         self.assertTrue(isHotGoal(testHot_2))
 
-    def test_HotRight_1 (self):
-        testHotRight_1 = cv2.imread(r"Hot Goals/HotGoal-Right1.png")
-        self.assertTrue(isHotGoal(testHotRight_1))
-
-    def test_HotRight_2 (self):
-        testHotRight_2 = cv2.imread(r"Hot Goals/HotGoal-Right2.png")
-        self.assertTrue(isHotGoal(testHotRight_2))
-
-    def test_HotRight_3 (self):
-        testHotRight_3 = cv2.imread(r"Hot Goals/HotGoal-Right3.png")
-        self.assertTrue(isHotGoal(testHotRight_3))
-
-    def test_HotRight_4 (self):
-        testHotRight_4 = cv2.imread(r"Hot Goals/HotGoal-Right4.png")
-        self.assertTrue(isHotGoal(testHotRight_4))
-
-    def test_HotRight_5 (self):
-        testHotRight_5 = cv2.imread(r"Hot Goals/HotGoal-Right5.png")
-        self.assertTrue(isHotGoal(testHotRight_5))
-
     # NOT HOT GOES HERE
     
     def test_NotHot_1 (self):
