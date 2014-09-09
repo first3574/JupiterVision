@@ -26,32 +26,24 @@ class TestHotGoal (unittest.TestCase):
         testHot_2 = cv2.imread(r"Hot Goals/HotGoal_Real2.png")
         self.assertTrue(isHotGoal(testHot_2))
 
-    def test_HotLeft_1 (self):
-        testHotLeft_1 = cv2.imread(r"Hot Goals/HotGoal-Left1.png")
-        self.assertTrue(isHotGoal(testHotLeft_1))
-
-    def test_HotLeft_2 (self):
-        testHotLeft_2 = cv2.imread(r"Hot Goals/HotGoal-Left2.png")
-        self.assertTrue(isHotGoal(testHotLeft_2))
-
     def test_HotRight_1 (self):
-        testHotLeft_1 = cv2.imread(r"Hot Goals/HotGoal-Right1.png")
+        testHotRight_1 = cv2.imread(r"Hot Goals/HotGoal-Right1.png")
         self.assertTrue(isHotGoal(testHotRight_1))
 
     def test_HotRight_2 (self):
-        testHotLeft_2 = cv2.imread(r"Hot Goals/HotGoal-Right2.png")
+        testHotRight_2 = cv2.imread(r"Hot Goals/HotGoal-Right2.png")
         self.assertTrue(isHotGoal(testHotRight_2))
 
     def test_HotRight_3 (self):
-        testHotLeft_3 = cv2.imread(r"Hot Goals/HotGoal-Right3.png")
+        testHotRight_3 = cv2.imread(r"Hot Goals/HotGoal-Right3.png")
         self.assertTrue(isHotGoal(testHotRight_3))
 
     def test_HotRight_4 (self):
-        testHotLeft_4 = cv2.imread(r"Hot Goals/HotGoal-Right4.png")
+        testHotRight_4 = cv2.imread(r"Hot Goals/HotGoal-Right4.png")
         self.assertTrue(isHotGoal(testHotRight_4))
 
     def test_HotRight_5 (self):
-        testHotLeft_5 = cv2.imread(r"Hot Goals/HotGoal-Right5.png")
+        testHotRight_5 = cv2.imread(r"Hot Goals/HotGoal-Right5.png")
         self.assertTrue(isHotGoal(testHotRight_5))
 
     # NOT HOT GOES HERE
